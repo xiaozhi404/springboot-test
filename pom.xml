@@ -53,12 +53,6 @@
             <version>2.2.2</version>
         </dependency>
 
-        <!-- 添加security依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
         <!-- 添加mybatis依赖-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
