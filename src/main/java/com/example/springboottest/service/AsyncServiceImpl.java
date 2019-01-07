@@ -28,16 +28,21 @@ public class AsyncServiceImpl {
         user.setPassword("1");
         userMapper.updateByPrimaryKeySelective(user);
         CompletionService completionService = new ExecutorCompletionService(executor);
-        for (int i = 0; i < 100; ++i) {
+        //提交100个任务
+        for (int i = 0; i < 5; ++i) {
             completionService.submit(new PrintTask(), null);
         }
-        for (int i = 0; i < 100; ++i) {
+
+        //获取100个任务的完成情况
+        for (int i = 0; i < 5; ++i) {
             completionService.take().get();
         }
+
         User user2 = new User();
         user2.setId(id);
         user2.setPassword("0");
         userMapper.updateByPrimaryKeySelective(user2);
-        System.out.println("hello");
+
+        System.out.println("complation---"+Thread.currentThread().getName());
     }
 }
