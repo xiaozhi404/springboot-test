@@ -29,12 +29,12 @@ public class AsyncServiceImpl {
         userMapper.updateByPrimaryKeySelective(user);
         CompletionService completionService = new ExecutorCompletionService(executor);
         //提交100个任务
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 1000; ++i) {
             completionService.submit(new PrintTask(), null);
         }
 
         //获取100个任务的完成情况
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 1000; ++i) {
             completionService.take().get();
         }
 
