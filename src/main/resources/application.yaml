@@ -37,3 +37,14 @@ mapper:
   not-empty: false
   identity: MYSQL
   style: camelhump
+
+
+apache:
+  rocketmq:
+  # 消费者的组名
+    consumerGroup: PushConsumer
+  # 生产者的组名
+    producerGroup: Producer
+  # NameServer地址
+    namesrvAddr: 127.0.0.1:9876
+
