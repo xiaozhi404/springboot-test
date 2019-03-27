@@ -5,6 +5,7 @@ import java.beans.PropertyDescriptor
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.util.*
+import java.util.Collections.emptyList
 
 /**
  * 描述：通用vo,dto转化器
