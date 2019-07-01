@@ -1,32 +1,20 @@
 package com.example.springboottest.controller;
 
 
-import com.example.springboottest.service.AsyncServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
+
+@Api("hello接口管理")
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
 
-    @Autowired
-    private AsyncServiceImpl asyncService;
-
-    @RequestMapping("/hello")
+    @ApiOperation("获取hello world字符串")
+    @RequestMapping("/world")
     public String hello() {
-        return "hello";
+        return "hello world";
     }
 
-    @GetMapping("/async/{id}")
-    public String asyncM(@PathVariable("id") Long id) {
-        try {
-            asyncService.asyncMethod(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "hello";
-    }
 }

@@ -1,7 +1,7 @@
 package com.example.springboottest.controller;
 
 import com.example.springboottest.pojo.User;
-import com.example.springboottest.tkMapper.UserMapper;
+import com.example.springboottest.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -11,26 +11,25 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@Api(value = "用户模块", description = "用户相关接口")
+@Api("用户相关接口")
 @RestController
 @RequestMapping(value="/users")
 public class UserController {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
-    @ApiOperation(value="获取用户列表", notes="")
+    @ApiOperation("获取用户列表")
     @GetMapping(value="/")
     public List<User> getUserList() {
-        List<User> users = userMapper.selectAll();
+        List<User> users = userService.list();
         return users;
     }
 
     @ApiOperation(value="创建用户", notes="根据User对象创建用户")
-    @ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
     @PostMapping("/")
     public String postUser(@RequestBody User user) {
-        userMapper.insertSelective(user);
+        userService.save(user);
         return "insert success";
     }
 
@@ -38,7 +37,7 @@ public class UserController {
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long")
     @GetMapping("/{id}")
     public User getUser(@PathVariable Long id) {
-        User user = userMapper.selectByPrimaryKey(id);
+        User user = userService.getById(id);
         return user;
     }
 
@@ -47,9 +46,9 @@ public class UserController {
             @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long"),
             @ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
     })
-    @PutMapping("/{id}")
-    public String putUser(@PathVariable Long id, @RequestBody User user) {
-        userMapper.updateByPrimaryKeySelective(user);
+    @PutMapping
+    public String putUser(@RequestBody User user) {
+        userService.updateById(user);
         return "update success";
     }
 
@@ -57,7 +56,7 @@ public class UserController {
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long")
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable Long id) {
-        userMapper.deleteByPrimaryKey(id);
+        userService.removeById(id);
         return "delete success";
     }
 

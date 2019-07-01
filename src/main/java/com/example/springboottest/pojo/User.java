@@ -1,28 +1,51 @@
 package com.example.springboottest.pojo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.persistence.Id;
+import java.io.Serializable;
 
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author xiaozhi
+ * @since 2019-06-28
+ */
+@TableName("tbl_user")
 @Data
-@ApiModel("用户信息")
-public class User {
+public class User implements Serializable {
 
-    @ApiModelProperty("用户id")
-    @JsonProperty("id")
-    @Id
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("用户名称")
-    @JsonProperty("user_name")
     private String userName;
 
-    @ApiModelProperty("密码")
-    @JsonProperty("password")
     private String password;
 
+    private Long roleId;
 
+    @ApiModelProperty(value = "最后一次密码修改时间")
+    private Integer lastPasswordChange;
+
+    @ApiModelProperty(value = "是否启用该账号，可以用来做黑名单")
+    private Integer enable;
+
+    @ApiModelProperty(value = "创建时间")
+    private Integer createdAt;
+
+    @ApiModelProperty(value = "更新时间")
+    private Integer updatedAt;
+
+    @ApiModelProperty(value = "是否删除，0未删除，1已删除")
+    @TableLogic
+    private Integer isDeleted;
 }

@@ -1,50 +1,46 @@
 server:
   port: 8080
 spring:
-  security:
-    user:
-      name: qw
-      password: 22
-      roles: user
+  flyway:
+    enabled: true   #fly命名三种，现在用：版本__描述.sql
+    baseline-on-migrate: true   #不是在项目初就加flyway的话，则在有历史数据的情况下，加入flyway后，将会出现：set baselineOnMigrate to true to initialize the schema history table.
+    locations: "classpath:db/mysql/migration"   # migration文件存放的位置，每个文件只会执行一次
+    schemas: test   #数据库名称
+    out-of-order: false #乱序执行，flyway默认是按照版本号从小到大执行的
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/exam
   datasource:
-    url: jdbc:mysql://localhost:3306/test
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
     username: root
     driver-class-name: com.mysql.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    # 配置druid
-    initialSize: 5
-    minIdle: 5
-    maxActive: 20
-    maxWait: 60000
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: SELECT 1 FROM DUAL
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-    filters: stat,wall,logback
-    maxPoolPreparedStatementPerConnectionSize: 20
-    useGlobalDataSourceStat: true
-    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-  #  这个配置的作用是用于执行SQL语句，生成表和插入数据
-  #    schema:
-  #      - classpath:department.sql
+    name: hikariCP
+    hikari:
+      maximum-pool-size: 10
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 2000
+      validation-timeout: 1000
+      idle-timeout: 0
+      max-lifetime: 30000
+      # connection-init-sql: "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;"
+      data-source-properties:
+        serverTimezone: GMT+8
+        useTimezone: true
+        zeroDateTimeBehavior: round
+        characterEncoding: utf8
+        cachePrepStmts: true
+        prepStmtCacheSize: 128
+        prepStmtCacheSqlLimit: 1024
+        useSSL: false
+        useUnicode: true
+mybatis-plus:
+  mapper-locations: "db/mysql/mapper/**.xml"
+  global-config:
+    db-config:
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 
-mapper:
-  mappers: tk.mybatis.mapper.common.Mapper
-  not-empty: false
-  identity: MYSQL
-  style: camelhump
 
 
-apache:
-  rocketmq:
-  # 消费者的组名
-    consumerGroup: PushConsumer
-  # 生产者的组名
-    producerGroup: Producer
-  # NameServer地址
-    namesrvAddr: 127.0.0.1:9876
 
