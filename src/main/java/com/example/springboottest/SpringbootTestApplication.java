@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
-@EnableWebSecurity
+
 @EnableSwagger2
 @SpringBootApplication
 public class SpringbootTestApplication {
@@ -17,16 +17,4 @@ public class SpringbootTestApplication {
         SpringApplication.run(SpringbootTestApplication.class, args);
     }
 
-    @Bean
-    public ThreadPoolTaskExecutor getAsyncExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
-        executor.setMaxPoolSize(100);
-        executor.setQueueCapacity(2000);
-        executor.setWaitForTasksToCompleteOnShutdown(true);
-        executor.setAwaitTerminationSeconds(60 * 10);
-        executor.setThreadNamePrefix("AsyncThread-");
-        executor.initialize(); //如果不初始化，导致找到不到执行器
-        return executor;
-    }
 }
