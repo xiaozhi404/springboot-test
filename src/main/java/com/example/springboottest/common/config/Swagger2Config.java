@@ -42,6 +42,26 @@ public class Swagger2Config {
                 ;
     }
 
+    @Bean
+    public Docket createHomeApi() {
+        ParameterBuilder tokenPar = new ParameterBuilder();
+        List parameters =  new ArrayList<Parameter>();
+        tokenPar.name("Authorization").description("令牌-Bearer").modelRef( new ModelRef("string"))
+                .parameterType("header").required(false).build();
+        tokenPar.defaultValue(defaultToken);
+        parameters.add(tokenPar.build());
+
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("前台模块")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.example.springboottest.home.controller"))
+                .paths(PathSelectors.any())
+                .build()
+                .globalOperationParameters(parameters)
+                ;
+    }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("RESTful APIs")

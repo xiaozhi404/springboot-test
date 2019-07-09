@@ -1,4 +1,4 @@
-package com.example.springboottest.admin.controller;
+package com.example.springboottest.home.controller;
 
 
 import io.swagger.annotations.Api;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api("hello接口管理")
 @RestController
-@RequestMapping("/hello")
+@RequestMapping("/home/hello")
 public class HelloController {
 
     @ApiOperation("获取hello world字符串")
