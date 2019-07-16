@@ -1,6 +1,9 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 src/main/resources/db/mysql/.DS_Store
+src/main/resources/.DS_Store
+src/main/resources/excel/.DS_Store
+
 ### STS ###
 .apt_generated
 .classpath
