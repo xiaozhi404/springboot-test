@@ -14,6 +14,7 @@ public class HelloController {
     @ApiOperation("获取hello world字符串")
     @RequestMapping("/world")
     public String hello() {
+
         return "hello world";
     }
 

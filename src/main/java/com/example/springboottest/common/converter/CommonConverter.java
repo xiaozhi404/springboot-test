@@ -14,9 +14,6 @@ import java.util.List;
  * 作用：将po转化成vo, 将dto转化成po
  * 规范：1.po和vo，dto的属性名称一致，类型一致
  *      2.日期类型处理方法：po的日期类型为Date, 与前台互相交流的单位为秒
- *      3.po的属性数量>=vo的属性数量 dto的属性数量<=vo
- *      4.若不符合规范3，则需要在程序进行控制
- * @author caixianzhi
  */
 public class CommonConverter {
 
@@ -36,7 +33,13 @@ public class CommonConverter {
             //排除类本身有的class属性
             if (!"class".equals(voPropName)) {
                 //遍历vo的属性，并获取po对应的属性描述器
-                PropertyDescriptor poProp = new PropertyDescriptor(voPropName, po.getClass());
+                PropertyDescriptor poProp;
+                try {
+                    poProp = new PropertyDescriptor(voPropName, po.getClass());
+                } catch (Exception e) {
+                    continue;
+                }
+
                 //将po属性的值设置在vo中
                 Object poPropVal = poProp.getReadMethod().invoke(po);
                 //判断类型是否相同
@@ -92,7 +95,12 @@ public class CommonConverter {
             //排除类本身有的class属性
             if (!"class".equals(dtoPropName)) {
                 //获取po对应的属性描述器
-                PropertyDescriptor poProp = new PropertyDescriptor(dtoPropName, poClass);
+                PropertyDescriptor poProp;
+                try {
+                    poProp = new PropertyDescriptor(dtoPropName, poClass);
+                } catch (Exception e) {
+                    continue;
+                }
                 //将dto属性的值设置在po中
                 Object dtoPropVal = dtoProp.getReadMethod().invoke(dto);
                 //判断类型是否相同

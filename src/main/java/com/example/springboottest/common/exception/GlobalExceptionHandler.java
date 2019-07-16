@@ -1,10 +1,12 @@
 package com.example.springboottest.common.exception;
 
 
+import com.example.springboottest.common.excel.exception.ExcelUtilsException;
 import com.example.springboottest.common.exception.dto.BusinessException;
 import com.example.springboottest.common.exception.dto.ExceptionResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -38,6 +40,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(
                 new ExceptionResponseBody(exceptionMsgEnum.getCode(), exceptionMsgEnum.getMsg()),
                 exceptionMsgEnum.getHttpStatus()
+        );
+
+    }
+
+    @ExceptionHandler(ExcelUtilsException.class)
+    public ResponseEntity<ExceptionResponseBody> excelUtilsExceptionHandle(ExcelUtilsException e) {
+        return new ResponseEntity<>(
+                new ExceptionResponseBody(001, e.getMessage()),
+                HttpStatus.FORBIDDEN
         );
 
     }

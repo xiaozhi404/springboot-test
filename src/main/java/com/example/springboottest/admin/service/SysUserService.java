@@ -6,6 +6,9 @@ import com.example.springboottest.admin.domain.inbound.LoginInbound;
 import com.example.springboottest.admin.domain.outbound.LoginOutbound;
 import com.example.springboottest.common.pojo.SysUser;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  *  服务类
@@ -22,4 +25,5 @@ public interface SysUserService extends IService<SysUser> {
      * @return
      */
     LoginOutbound loginByAccount(LoginInbound loginInbound);
+
 }

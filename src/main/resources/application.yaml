@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   flyway:
     enabled: true   #fly命名三种，现在用：版本__描述.sql
@@ -7,9 +8,9 @@ spring:
     locations: "classpath:db/mysql/migration"   # migration文件存放的位置，每个文件只会执行一次
     schemas: test   #数据库名称
     out-of-order: false #乱序执行，flyway默认是按照版本号从小到大执行的
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/exam
+  redis:
+    host: 127.0.0.1
+    port: 6379
   datasource:
     url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
     username: root
@@ -40,6 +41,8 @@ mybatis-plus:
     db-config:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  # 支持统配符 * 或者 ; 分割
+  typeEnumsPackage: com.example.springboottest.admin.domain.constant
 
 
 

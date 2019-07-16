@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 角色表 前端控制器
+ * 按钮表，控制到每个菜单的每个按钮 前端控制器
  * </p>
  *
  * @author xiaozhi
- * @since 2019-07-08
+ * @since 2019-07-12
  */
 @RestController
-@RequestMapping("/admin/sys-role")
-public class SysRoleController {
+@RequestMapping("/button")
+public class ButtonController {
 
 }
 

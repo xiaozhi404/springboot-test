@@ -6,6 +6,9 @@ import com.example.springboottest.admin.domain.inbound.LoginInbound;
 import com.example.springboottest.admin.domain.outbound.LoginOutbound;
 import com.example.springboottest.common.pojo.HomeUser;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  * 前台用户 服务类
@@ -22,4 +25,6 @@ public interface HomeUserService extends IService<HomeUser> {
      * @return
      */
     LoginOutbound loginByAccount(LoginInbound loginInbound);
+
+    void loginByAccountWithSession(LoginInbound loginInbound, HttpSession session);
 }

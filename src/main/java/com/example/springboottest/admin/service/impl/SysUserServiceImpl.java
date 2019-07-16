@@ -51,7 +51,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         } else {
             //获取用户拥有的所有的角色标示，构建token
             List<SysRoleUser> roleUserList = sysRoleUserService.list(new QueryWrapper<SysRoleUser>().eq("sys_user_id", sysUser.getId()));
-            List<Long> roleIds = roleUserList.stream().map(SysRoleUser::getSysRoleId).collect(Collectors.toList());
+            List<Integer> roleIds = roleUserList.stream().map(SysRoleUser::getSysRoleId).collect(Collectors.toList());
             List<String> roleAuths = sysRoleService.listByIds(roleIds).stream().map(SysRole::getAuth).collect(Collectors.toList());
             return new LoginOutbound(
                   new UserOutbound(
@@ -67,4 +67,5 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             );
         }
     }
+
 }

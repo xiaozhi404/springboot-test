@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Api("前台登录相关接口")
 @RestController
 @RequestMapping(value="/home/auth")
@@ -25,4 +28,5 @@ public class HomeAuthController {
     public LoginOutbound loginByAccount(@RequestBody LoginInbound loginInbound) {
         return homeUserService.loginByAccount(loginInbound);
     }
+
 }

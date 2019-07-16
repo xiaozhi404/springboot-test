@@ -1,6 +1,5 @@
 package com.example.springboottest.common.security.filter;
 
-import com.example.springboottest.common.security.dto.AdminTokenDTO;
 import com.example.springboottest.common.security.dto.HomeTokenDTO;
 import com.example.springboottest.common.utils.JWTUtils;
 import org.springframework.http.HttpHeaders;

@@ -4,11 +4,9 @@ import com.example.springboottest.common.security.filter.AdminAuthenticationFilt
 import com.example.springboottest.common.security.filter.HomeAuthenticationFilter;
 import com.example.springboottest.common.security.handler.EntryPointUnauthorizedHandler;
 import com.example.springboottest.common.security.handler.MyAccessDeniedHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 /**
  * 描述：前后台鉴权
+ * 说明：会话管理使用了JWT，可以使用redis模拟session进行实现
  */
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -35,12 +34,14 @@ public class WebSecurityConfig {
                     .csrf().disable()//使用了jwt,故不需要防止csrf
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //定制session策略,不创建和使用session
                     .and()
+                    .formLogin().disable() //不需要UsernamePasswordAuthenticationFilter
+                    .httpBasic().disable() //不需要BasicAuthenticationFilter
                     .authorizeRequests()
                     //permitAll 该请求不需要登录和权限认证
                     //其它没配置的路径需要登录才能访问
                     .antMatchers( HttpMethod.OPTIONS, "/**").permitAll()
-                    .antMatchers("/home/auth/login").permitAll()
-                    .antMatchers("/home/hello/**").hasRole("SUPER_VIP")  //用来认证角色，security会自动帮该字符串加前戳ROLE_，故数据库的存储也要加前缀ROLE_
+                    .antMatchers("/home/auth/**").permitAll()
+                    .antMatchers("/home/**").hasRole("SUPER_VIP")  //用来认证角色，security会自动帮该字符串加前戳ROLE_，故数据库的存储也要加前缀ROLE_
                     //.antMatchers("/admin/users/**").hasAuthority("super_admin") //鉴定权限
                     .anyRequest().authenticated()
                     .and()  //注意拦截器不能用@compone, 而且拦截器只是添加到chain中，不会替代默认的认证拦截器
@@ -69,11 +70,13 @@ public class WebSecurityConfig {
                     .csrf().disable()//使用了jwt,故不需要防止csrf
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //定制session策略,不创建和使用session
                     .and()
+                    .formLogin().disable() //不需要UsernamePasswordAuthenticationFilter
+                    .httpBasic().disable() //不需要BasicAuthenticationFilter
                     .authorizeRequests()
                     //permitAll 该请求不需要登录和权限认证
                     //其它没配置的路径需要登录才能访问
                     .antMatchers( HttpMethod.OPTIONS, "/**").permitAll()
-                    .antMatchers("/admin/login").permitAll()
+                    .antMatchers("/admin/auth/**").permitAll()
                     .antMatchers("/admin/users/**").hasRole("SUPER_ADMIN")  //用来认证角色，security会自动帮该字符串加前戳ROLE_，故数据库的存储也要加前缀ROLE_
                     //.antMatchers("/admin/users/**").hasAuthority("super_admin") //鉴定权限
                     .anyRequest().authenticated()

@@ -11,17 +11,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @Api("登录相关接口")
 @RestController
-@RequestMapping(value="/admin")
+@RequestMapping(value="/admin/auth")
 public class AuthController {
 
     @Autowired
     private SysUserService sysUserService;
 
-    @ApiOperation("账号密码登录")
+    @ApiOperation("账号密码登录-jwt实现")
     @PostMapping("/login")
     public LoginOutbound loginByAccount(@RequestBody LoginInbound loginInbound) {
         return sysUserService.loginByAccount(loginInbound);
     }
+
 }
