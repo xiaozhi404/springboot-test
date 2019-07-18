@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.springboottest.admin.domain.inbound.LoginInbound;
 import com.example.springboottest.admin.domain.outbound.LoginOutbound;
 import com.example.springboottest.common.pojo.HomeUser;
+import com.example.springboottest.common.security.dto.AccessToken;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,4 +28,6 @@ public interface HomeUserService extends IService<HomeUser> {
     LoginOutbound loginByAccount(LoginInbound loginInbound);
 
     void loginByAccountWithSession(LoginInbound loginInbound, HttpSession session);
+
+    AccessToken refreshToken(String refreshToken);
 }

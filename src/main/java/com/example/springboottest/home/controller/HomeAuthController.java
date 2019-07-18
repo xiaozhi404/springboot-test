@@ -3,14 +3,13 @@ package com.example.springboottest.home.controller;
 import com.example.springboottest.admin.domain.inbound.LoginInbound;
 import com.example.springboottest.admin.domain.outbound.LoginOutbound;
 import com.example.springboottest.admin.service.SysUserService;
+import com.example.springboottest.common.security.dto.AccessToken;
 import com.example.springboottest.home.service.HomeUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,6 +26,14 @@ public class HomeAuthController {
     @PostMapping("/login")
     public LoginOutbound loginByAccount(@RequestBody LoginInbound loginInbound) {
         return homeUserService.loginByAccount(loginInbound);
+    }
+
+    /**
+     * 刷新token
+     */
+    @GetMapping(value = "/refreshToken")
+    public AccessToken refreshToken(@RequestHeader String authorization) throws AuthenticationException {
+        return homeUserService.refreshToken(authorization);
     }
 
 }

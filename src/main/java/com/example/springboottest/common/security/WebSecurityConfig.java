@@ -82,7 +82,7 @@ public class WebSecurityConfig {
                     .anyRequest().authenticated()
                     .and()  //注意拦截器不能用@compone, 而且拦截器只是添加到chain中，不会替代默认的认证拦截器
                     .addFilterBefore(new AdminAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                    .exceptionHandling()    //处理异常
+                    .exceptionHandling()    //处理401没有登录异常和403没有权限异常
                     .authenticationEntryPoint(new EntryPointUnauthorizedHandler())
                     .accessDeniedHandler(new MyAccessDeniedHandler())
             ;

@@ -1,11 +1,15 @@
 package com.example.springboottest.common.security.filter;
 
 import com.example.springboottest.common.security.dto.AdminTokenDTO;
+import com.example.springboottest.common.security.handler.JWTExpireHandler;
 import com.example.springboottest.common.utils.JWTUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -51,7 +55,8 @@ public class AdminAuthenticationFilter extends OncePerRequestFilter {
                     )
             );
         } catch (Exception e) {
-            throw new BadCredentialsException(e.getLocalizedMessage());
+            JWTExpireHandler.handle(request,response, e);
+            return;
         }
         chain.doFilter(request, response);
     }

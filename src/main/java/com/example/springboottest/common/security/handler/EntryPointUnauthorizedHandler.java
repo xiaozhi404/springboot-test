@@ -11,6 +11,7 @@ import java.io.IOException;
 /**
  * 描述：处理未登录或无权限时触发的操作
  * 作用：没有携带token或者token无效异常处理
+ * 处理AuthenticationException
  */
 public class EntryPointUnauthorizedHandler implements AuthenticationEntryPoint {
 

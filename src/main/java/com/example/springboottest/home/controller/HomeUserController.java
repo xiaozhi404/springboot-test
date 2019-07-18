@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 /**
  * <p>
  * 前台用户 前端控制器
@@ -22,7 +24,7 @@ public class HomeUserController {
     @ApiOperation("获取用户Id")
     @GetMapping("/userId")
     public Integer getId() {
-
+        new HashMap<>();
         Integer userId = SecurityUtils.getUserId();
         return userId;
     }

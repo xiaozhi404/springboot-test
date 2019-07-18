@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.springboottest.admin.domain.inbound.LoginInbound;
 import com.example.springboottest.admin.domain.outbound.LoginOutbound;
 import com.example.springboottest.common.pojo.SysUser;
+import com.example.springboottest.common.security.dto.AccessToken;
+import com.example.springboottest.common.security.dto.TokenOutbound;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,4 +28,10 @@ public interface SysUserService extends IService<SysUser> {
      */
     LoginOutbound loginByAccount(LoginInbound loginInbound);
 
+    /**
+     * 刷新token
+     * @param authorization
+     * @return
+     */
+    AccessToken refreshToken(String authorization);
 }

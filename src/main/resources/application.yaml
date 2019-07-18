@@ -43,6 +43,9 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
   # 支持统配符 * 或者 ; 分割
   typeEnumsPackage: com.example.springboottest.admin.domain.constant
+logging:
+  level:
+    org.springframework.security: DEBUG
 
 
 

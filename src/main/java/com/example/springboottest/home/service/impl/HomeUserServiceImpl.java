@@ -10,6 +10,7 @@ import com.example.springboottest.common.exception.ExceptionMsgEnum;
 import com.example.springboottest.common.exception.dto.BusinessException;
 import com.example.springboottest.common.mapper.HomeUserMapper;
 import com.example.springboottest.common.pojo.*;
+import com.example.springboottest.common.security.dto.AccessToken;
 import com.example.springboottest.common.security.dto.HomeTokenDTO;
 import com.example.springboottest.common.utils.JWTUtils;
 import com.example.springboottest.home.dto.HomeUserInfo;
@@ -90,5 +91,11 @@ public class HomeUserServiceImpl extends ServiceImpl<HomeUserMapper, HomeUser> i
                     );
 
         }
+    }
+
+    @Override
+    public AccessToken refreshToken(String refreshToken) {
+
+        return JWTUtils.refreshHomeToken(refreshToken);
     }
 }

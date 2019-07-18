@@ -16,7 +16,9 @@ import com.example.springboottest.common.pojo.SysRole;
 import com.example.springboottest.common.pojo.SysRoleUser;
 import com.example.springboottest.common.pojo.SysUser;
 import com.example.springboottest.admin.service.SysUserService;
+import com.example.springboottest.common.security.dto.AccessToken;
 import com.example.springboottest.common.security.dto.AdminTokenDTO;
+import com.example.springboottest.common.security.dto.TokenOutbound;
 import com.example.springboottest.common.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,19 +55,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             List<SysRoleUser> roleUserList = sysRoleUserService.list(new QueryWrapper<SysRoleUser>().eq("sys_user_id", sysUser.getId()));
             List<Integer> roleIds = roleUserList.stream().map(SysRoleUser::getSysRoleId).collect(Collectors.toList());
             List<String> roleAuths = sysRoleService.listByIds(roleIds).stream().map(SysRole::getAuth).collect(Collectors.toList());
+
             return new LoginOutbound(
                   new UserOutbound(
                           sysUser.getId(),
                           sysUser.getUserName()
                   ),
-                  JWTUtils.buildAdminToken(
-                          new AdminTokenDTO(
-                                  sysUser.getId(),
-                                  roleAuths
-                          )
-                  )
+                    JWTUtils.buildAdminToken(
+                            new AdminTokenDTO(
+                                    sysUser.getId(),
+                                    roleAuths
+                            )
+                    )
             );
         }
+    }
+
+    @Override
+    public AccessToken refreshToken(String refreshToken) {
+        return null;
     }
 
 }

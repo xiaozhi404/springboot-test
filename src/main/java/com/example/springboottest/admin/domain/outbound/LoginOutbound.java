@@ -1,5 +1,7 @@
 package com.example.springboottest.admin.domain.outbound;
 
+import com.example.springboottest.common.security.dto.TokenOutbound;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,6 @@ public class LoginOutbound {
 
     private UserOutbound userOutbound;
 
-    private String token;
+    private TokenOutbound tokenOutbound;
 
 }
