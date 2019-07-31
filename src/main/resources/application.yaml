@@ -1,6 +1,5 @@
 server:
   port: 8080
-
 spring:
   flyway:
     enabled: true   #fly命名三种，现在用：版本__描述.sql
