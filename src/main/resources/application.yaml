@@ -6,7 +6,7 @@ spring:
     baseline-on-migrate: true   #不是在项目初就加flyway的话，则在有历史数据的情况下，加入flyway后，将会出现：set baselineOnMigrate to true to initialize the schema history table.
     locations: "classpath:db/mysql/migration"   # migration文件存放的位置，每个文件只会执行一次
     schemas: test   #数据库名称
-    out-of-order: false #乱序执行，flyway默认是按照版本号从小到大执行的
+    out-of-order: true #乱序执行，flyway默认是按照版本号从小到大执行的
   redis:
     host: 127.0.0.1
     port: 6379
