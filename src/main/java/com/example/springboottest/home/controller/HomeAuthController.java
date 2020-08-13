@@ -25,6 +25,7 @@ public class HomeAuthController {
     @ApiOperation("账号密码登录")
     @PostMapping("/login")
     public LoginOutbound loginByAccount(@RequestBody LoginInbound loginInbound) {
+        System.out.println("bbbbb");
         return homeUserService.loginByAccount(loginInbound);
     }
 
