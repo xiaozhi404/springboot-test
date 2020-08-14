@@ -26,7 +26,6 @@ public class HomeAuthController {
     @PostMapping("/login")
     public LoginOutbound loginByAccount(@RequestBody LoginInbound loginInbound) {
         System.out.println("bbbbb");
-        System.out.println("cccc");
         return homeUserService.loginByAccount(loginInbound);
     }
 
