@@ -34,7 +34,7 @@ public class HomeAuthController {
      */
     @GetMapping(value = "/refreshToken")
     public AccessToken refreshToken(@RequestHeader String authorization) throws AuthenticationException {
-        System.out.println("cherry");
+        System.out.println("pick");
         return homeUserService.refreshToken(authorization);
     }
 
